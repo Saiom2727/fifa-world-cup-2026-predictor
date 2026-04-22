@@ -124,8 +124,9 @@ python Final/traindraw.py
 
 ```bash
 python Final/Tournament_Simulation.py  //For tournament simulation
-```
 python Final/Tournament_Simulation.py  //For tournament winning probabilities
+```
+
 
 ### Open HTML Output
 
