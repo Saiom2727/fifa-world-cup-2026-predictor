@@ -1,0 +1,36 @@
+# Virtual environments
+.venv/
+venv/
+myenv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter
+.ipynb_checkpoints/
+
+# CatBoost training logs
+catboost_info/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code optional
+.vscode/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+
+# Model checkpoints (optional if large)
+# *.pkl
+
+# CSV outputs you don't want
+# *.csv

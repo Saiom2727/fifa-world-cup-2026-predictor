@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>2026 FIFA World Cup Simulation</title>
+<style>
+  :root {
+    --bg: #070d1f;
+    --surface: #0f1829;
+    --surface2: #162038;
+    --accent: #c9a84c;
+    --accent2: #1a7a3e;
+    --text: #e8eaf6;
+    --muted: #7986a8;
+    --win: #1a7a3e;
+    --draw: #5a6a8a;
+    --loss: #8a1a1a;
+    --qualify: rgba(26,122,62,0.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    padding: 30px 20px;
+    min-height: 100vh;
+  }
+  h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: var(--accent);
+    text-shadow: 0 0 30px rgba(201,168,76,0.3);
+  }
+  .subtitle {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 40px;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .champion {
+    font-size: 2rem;
+    text-align: center;
+    background: linear-gradient(135deg, #1a5e30, #1a7a3e);
+    padding: 28px;
+    border-radius: 16px;
+    margin-bottom: 36px;
+    font-weight: 800;
+    border: 2px solid var(--accent);
+    letter-spacing: 1px;
+    box-shadow: 0 0 40px rgba(201,168,76,0.2);
+  }
+  .section-label {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin: 40px 0 16px;
+  }
+  .card {
+    background: var(--surface);
+    border-radius: 14px;
+    margin: 18px 0;
+    border: 1px solid #1e2d4a;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .ko-card { border-color: #2a3a5a; }
+  .card-header {
+    background: var(--surface2);
+    padding: 14px 20px;
+    border-bottom: 1px solid #1e2d4a;
+  }
+  .group-badge {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .round-badge {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #7eb8f7;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .card-body { padding: 20px; }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media(max-width:700px) { .two-col { grid-template-columns: 1fr; } }
+  .section-title {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  td, th {
+    padding: 9px 12px;
+    text-align: center;
+    border-bottom: 1px solid #1a2540;
+  }
+  th {
+    background: #111c35;
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.03); }
+  .qualify td { background: var(--qualify); }
+  .qualify:hover td { background: rgba(26,122,62,0.25); }
+  .team-name { text-align: left; }
+  .vs { color: var(--muted); font-size: 0.8rem; }
+  .lost { color: var(--muted); }
+  .winner-cell { color: #7eb8f7; font-weight: 600; }
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+  .badge-W { background: var(--win); color: #fff; }
+  .badge-D { background: var(--draw); color: #fff; }
+  .badge-L { background: var(--loss); color: #fff; }
+  .groups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+    gap: 18px;
+  }
+  .groups-grid .card { margin: 0; }
+</style>
+</head>
+<body>
+
+<h1>⚽ 2026 FIFA World Cup</h1>
+<p class="subtitle">Full Tournament Simulation</p>
+
+<div class='champion'>🏆 Spain</div>
+        <div class='card'>
+          <div class='card-header'><span class='group-badge'>Group A</span></div>
+          <div class='card-body'>
+            <div class='two-col'>
+              <div>
+                <h3 class='section-title'>Standings</h3>
+                <table>
+                  <tr><th>#</th><th>Team</th><th>Pts</th><th>GD</th></tr>
+        <tr class='qualify'><td>1</td><td>Mexico</td><td><b>6</b></td><td>0</td></tr><tr class='qualify'><td>2</td><td>South Africa</td><td><b>6</b></td><td>0</td></tr><tr class=''><td>3</td><td>Korea Republic</td><td><b>3</b></td><td>0</td></tr><tr class=''><td>4</td><td>Czechia</td><td><b>3</b></td><td>0</td></tr>
+                </table>
+              </div>
+              <div>
+                <h3 class='section-title'>Results</h3>
+                <table>
+                  <tr><th>Home</th><th></th><th>Away</th></tr>
+        <tr><td class='team-name'>Mexico <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> South Africa</td></tr><tr><td class='team-name'>Mexico <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Korea Republic</td></tr><tr><td class='team-name'>Mexico <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Czechia</td></tr><tr><td class='team-name'>South Africa <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Korea Republic</td></tr><tr><td class='team-name'>South Africa <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Czechia</td></tr><tr><td class='team-name'>Korea Republic <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Czechia</td></tr></table></div></div></div></div>
+        <div class='card'>
+          <div class='card-header'><span class='group-badge'>Group B</span></div>
+          <div class='card-body'>
+            <div class='two-col'>
+              <div>
+                <h3 class='section-title'>Standings</h3>
+                <table>
+                  <tr><th>#</th><th>Team</th><th>Pts</th><th>GD</th></tr>
+        <tr class='qualify'><td>1</td><td>Switzerland</td><td><b>7</b></td><td>0</td></tr><tr class='qualify'><td>2</td><td>Bosnia-Herzegovina</td><td><b>6</b></td><td>0</td></tr><tr class=''><td>3</td><td>Qatar</td><td><b>3</b></td><td>0</td></tr><tr class=''><td>4</td><td>Canada</td><td><b>1</b></td><td>0</td></tr>
+                </table>
+              </div>
+              <div>
+                <h3 class='section-title'>Results</h3>
+                <table>
+                  <tr><th>Home</th><th></th><th>Away</th></tr>
+        <tr><td class='team-name'>Canada <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Bosnia-Herzegovina</td></tr><tr><td class='team-name'>Canada <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Qatar</td></tr><tr><td class='team-name'>Canada <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Switzerland</td></tr><tr><td class='team-name'>Bosnia-Herzegovina <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Qatar</td></tr><tr><td class='team-name'>Bosnia-Herzegovina <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Switzerland</td></tr><tr><td class='team-name'>Qatar <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Switzerland</td></tr></table></div></div></div></div>
+        <div class='card'>
+          <div class='card-header'><span class='group-badge'>Group C</span></div>
+          <div class='card-body'>
+            <div class='two-col'>
+              <div>
+                <h3 class='section-title'>Standings</h3>
+                <table>
+                  <tr><th>#</th><th>Team</th><th>Pts</th><th>GD</th></tr>
+        <tr class='qualify'><td>1</td><td>Morocco</td><td><b>6</b></td><td>0</td></tr><tr class='qualify'><td>2</td><td>Brazil</td><td><b>5</b></td><td>0</td></tr><tr class=''><td>3</td><td>Scotland</td><td><b>4</b></td><td>0</td></tr><tr class=''><td>4</td><td>Haiti</td><td><b>1</b></td><td>0</td></tr>
+                </table>
+              </div>
+              <div>
+                <h3 class='section-title'>Results</h3>
+                <table>
+                  <tr><th>Home</th><th></th><th>Away</th></tr>
+        <tr><td class='team-name'>Brazil <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Morocco</td></tr><tr><td class='team-name'>Brazil <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Haiti</td></tr><tr><td class='team-name'>Brazil <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Scotland</td></tr><tr><td class='team-name'>Morocco <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Haiti</td></tr><tr><td class='team-name'>Morocco <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Scotland</td></tr><tr><td class='team-name'>Haiti <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Scotland</td></tr></table></div></div></div></div>
+        <div class='card'>
+          <div class='card-header'><span class='group-badge'>Group D</span></div>
+          <div class='card-body'>
+            <div class='two-col'>
+              <div>
+                <h3 class='section-title'>Standings</h3>
+                <table>
+                  <tr><th>#</th><th>Team</th><th>Pts</th><th>GD</th></tr>
+        <tr class='qualify'><td>1</td><td>Australia</td><td><b>7</b></td><td>0</td></tr><tr class='qualify'><td>2</td><td>Türkiye</td><td><b>4</b></td><td>0</td></tr><tr class=''><td>3</td><td>Paraguay</td><td><b>3</b></td><td>0</td></tr><tr class=''><td>4</td><td>USA</td><td><b>1</b></td><td>0</td></tr>
+                </table>
+              </div>
+              <div>
+                <h3 class='section-title'>Results</h3>
+                <table>
+                  <tr><th>Home</th><th></th><th>Away</th></tr>
+        <tr><td class='team-name'>USA <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Paraguay</td></tr><tr><td class='team-name'>USA <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Australia</td></tr><tr><td class='team-name'>USA <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Türkiye</td></tr><tr><td class='team-name'>Paraguay <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Australia</td></tr><tr><td class='team-name'>Paraguay <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Türkiye</td></tr><tr><td class='team-name'>Australia <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Türkiye</td></tr></table></div></div></div></div>
+        <div class='card'>
+          <div class='card-header'><span class='group-badge'>Group E</span></div>
+          <div class='card-body'>
+            <div class='two-col'>
+              <div>
+                <h3 class='section-title'>Standings</h3>
+                <table>
+                  <tr><th>#</th><th>Team</th><th>Pts</th><th>GD</th></tr>
+        <tr class='qualify'><td>1</td><td>Germany</td><td><b>7</b></td><td>0</td></tr><tr class='qualify'><td>2</td><td>Ecuador</td><td><b>4</b></td><td>0</td></tr><tr class=''><td>3</td><td>Curaçao</td><td><b>3</b></td><td>0</td></tr><tr class=''><td>4</td><td>Côte d'Ivoire</td><td><b>3</b></td><td>0</td></tr>
+                </table>
+              </div>
+              <div>
+                <h3 class='section-title'>Results</h3>
+                <table>
+                  <tr><th>Home</th><th></th><th>Away</th></tr>
+        <tr><td class='team-name'>Germany <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Curaçao</td></tr><tr><td class='team-name'>Germany <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Côte d'Ivoire</td></tr><tr><td class='team-name'>Germany <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Ecuador</td></tr><tr><td class='team-name'>Curaçao <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Côte d'Ivoire</td></tr><tr><td class='team-name'>Curaçao <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Ecuador</td></tr><tr><td class='team-name'>Côte d'Ivoire <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Ecuador</td></tr></table></div></div></div></div>
+        <div class='card'>
+          <div class='card-header'><span class='group-badge'>Group F</span></div>
+          <div class='card-body'>
+            <div class='two-col'>
+              <div>
+                <h3 class='section-title'>Standings</h3>
+                <table>
+                  <tr><th>#</th><th>Team</th><th>Pts</th><th>GD</th></tr>
+        <tr class='qualify'><td>1</td><td>Netherlands</td><td><b>7</b></td><td>0</td></tr><tr class='qualify'><td>2</td><td>Sweden</td><td><b>4</b></td><td>0</td></tr><tr class=''><td>3</td><td>Japan</td><td><b>3</b></td><td>0</td></tr><tr class=''><td>4</td><td>Tunisia</td><td><b>3</b></td><td>0</td></tr>
+                </table>
+              </div>
+              <div>
+                <h3 class='section-title'>Results</h3>
+                <table>
+                  <tr><th>Home</th><th></th><th>Away</th></tr>
+        <tr><td class='team-name'>Netherlands <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Japan</td></tr><tr><td class='team-name'>Netherlands <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Sweden</td></tr><tr><td class='team-name'>Netherlands <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Tunisia</td></tr><tr><td class='team-name'>Japan <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Sweden</td></tr><tr><td class='team-name'>Japan <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Tunisia</td></tr><tr><td class='team-name'>Sweden <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Tunisia</td></tr></table></div></div></div></div>
+        <div class='card'>
+          <div class='card-header'><span class='group-badge'>Group G</span></div>
+          <div class='card-body'>
+            <div class='two-col'>
+              <div>
+                <h3 class='section-title'>Standings</h3>
+                <table>
+                  <tr><th>#</th><th>Team</th><th>Pts</th><th>GD</th></tr>
+        <tr class='qualify'><td>1</td><td>Egypt</td><td><b>7</b></td><td>0</td></tr><tr class='qualify'><td>2</td><td>Belgium</td><td><b>5</b></td><td>0</td></tr><tr class=''><td>3</td><td>IR Iran</td><td><b>3</b></td><td>0</td></tr><tr class=''><td>4</td><td>New Zealand</td><td><b>1</b></td><td>0</td></tr>
+                </table>
+              </div>
+              <div>
+                <h3 class='section-title'>Results</h3>
+                <table>
+                  <tr><th>Home</th><th></th><th>Away</th></tr>
+        <tr><td class='team-name'>Belgium <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Egypt</td></tr><tr><td class='team-name'>Belgium <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> IR Iran</td></tr><tr><td class='team-name'>Belgium <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> New Zealand</td></tr><tr><td class='team-name'>Egypt <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> IR Iran</td></tr><tr><td class='team-name'>Egypt <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> New Zealand</td></tr><tr><td class='team-name'>IR Iran <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> New Zealand</td></tr></table></div></div></div></div>
+        <div class='card'>
+          <div class='card-header'><span class='group-badge'>Group H</span></div>
+          <div class='card-body'>
+            <div class='two-col'>
+              <div>
+                <h3 class='section-title'>Standings</h3>
+                <table>
+                  <tr><th>#</th><th>Team</th><th>Pts</th><th>GD</th></tr>
+        <tr class='qualify'><td>1</td><td>Uruguay</td><td><b>7</b></td><td>0</td></tr><tr class='qualify'><td>2</td><td>Spain</td><td><b>6</b></td><td>0</td></tr><tr class=''><td>3</td><td>Saudi Arabia</td><td><b>3</b></td><td>0</td></tr><tr class=''><td>4</td><td>Cabo Verde</td><td><b>1</b></td><td>0</td></tr>
+                </table>
+              </div>
+              <div>
+                <h3 class='section-title'>Results</h3>
+                <table>
+                  <tr><th>Home</th><th></th><th>Away</th></tr>
+        <tr><td class='team-name'>Spain <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Cabo Verde</td></tr><tr><td class='team-name'>Spain <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Saudi Arabia</td></tr><tr><td class='team-name'>Spain <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Uruguay</td></tr><tr><td class='team-name'>Cabo Verde <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Saudi Arabia</td></tr><tr><td class='team-name'>Cabo Verde <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Uruguay</td></tr><tr><td class='team-name'>Saudi Arabia <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Uruguay</td></tr></table></div></div></div></div>
+        <div class='card'>
+          <div class='card-header'><span class='group-badge'>Group I</span></div>
+          <div class='card-body'>
+            <div class='two-col'>
+              <div>
+                <h3 class='section-title'>Standings</h3>
+                <table>
+                  <tr><th>#</th><th>Team</th><th>Pts</th><th>GD</th></tr>
+        <tr class='qualify'><td>1</td><td>Senegal</td><td><b>7</b></td><td>0</td></tr><tr class='qualify'><td>2</td><td>France</td><td><b>5</b></td><td>0</td></tr><tr class=''><td>3</td><td>Iraq</td><td><b>2</b></td><td>0</td></tr><tr class=''><td>4</td><td>Norway</td><td><b>1</b></td><td>0</td></tr>
+                </table>
+              </div>
+              <div>
+                <h3 class='section-title'>Results</h3>
+                <table>
+                  <tr><th>Home</th><th></th><th>Away</th></tr>
+        <tr><td class='team-name'>France <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Senegal</td></tr><tr><td class='team-name'>France <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Iraq</td></tr><tr><td class='team-name'>France <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Norway</td></tr><tr><td class='team-name'>Senegal <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Iraq</td></tr><tr><td class='team-name'>Senegal <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Norway</td></tr><tr><td class='team-name'>Iraq <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Norway</td></tr></table></div></div></div></div>
+        <div class='card'>
+          <div class='card-header'><span class='group-badge'>Group J</span></div>
+          <div class='card-body'>
+            <div class='two-col'>
+              <div>
+                <h3 class='section-title'>Standings</h3>
+                <table>
+                  <tr><th>#</th><th>Team</th><th>Pts</th><th>GD</th></tr>
+        <tr class='qualify'><td>1</td><td>Argentina</td><td><b>9</b></td><td>0</td></tr><tr class='qualify'><td>2</td><td>Algeria</td><td><b>6</b></td><td>0</td></tr><tr class=''><td>3</td><td>Austria</td><td><b>3</b></td><td>0</td></tr><tr class=''><td>4</td><td>Jordan</td><td><b>0</b></td><td>0</td></tr>
+                </table>
+              </div>
+              <div>
+                <h3 class='section-title'>Results</h3>
+                <table>
+                  <tr><th>Home</th><th></th><th>Away</th></tr>
+        <tr><td class='team-name'>Argentina <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Algeria</td></tr><tr><td class='team-name'>Argentina <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Austria</td></tr><tr><td class='team-name'>Argentina <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Jordan</td></tr><tr><td class='team-name'>Algeria <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Austria</td></tr><tr><td class='team-name'>Algeria <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Jordan</td></tr><tr><td class='team-name'>Austria <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Jordan</td></tr></table></div></div></div></div>
+        <div class='card'>
+          <div class='card-header'><span class='group-badge'>Group K</span></div>
+          <div class='card-body'>
+            <div class='two-col'>
+              <div>
+                <h3 class='section-title'>Standings</h3>
+                <table>
+                  <tr><th>#</th><th>Team</th><th>Pts</th><th>GD</th></tr>
+        <tr class='qualify'><td>1</td><td>Portugal</td><td><b>5</b></td><td>0</td></tr><tr class='qualify'><td>2</td><td>Congo DR</td><td><b>4</b></td><td>0</td></tr><tr class=''><td>3</td><td>Colombia</td><td><b>4</b></td><td>0</td></tr><tr class=''><td>4</td><td>Uzbekistan</td><td><b>2</b></td><td>0</td></tr>
+                </table>
+              </div>
+              <div>
+                <h3 class='section-title'>Results</h3>
+                <table>
+                  <tr><th>Home</th><th></th><th>Away</th></tr>
+        <tr><td class='team-name'>Portugal <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Congo DR</td></tr><tr><td class='team-name'>Portugal <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Uzbekistan</td></tr><tr><td class='team-name'>Portugal <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Colombia</td></tr><tr><td class='team-name'>Congo DR <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Uzbekistan</td></tr><tr><td class='team-name'>Congo DR <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Colombia</td></tr><tr><td class='team-name'>Uzbekistan <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Colombia</td></tr></table></div></div></div></div>
+        <div class='card'>
+          <div class='card-header'><span class='group-badge'>Group L</span></div>
+          <div class='card-body'>
+            <div class='two-col'>
+              <div>
+                <h3 class='section-title'>Standings</h3>
+                <table>
+                  <tr><th>#</th><th>Team</th><th>Pts</th><th>GD</th></tr>
+        <tr class='qualify'><td>1</td><td>Croatia</td><td><b>9</b></td><td>0</td></tr><tr class='qualify'><td>2</td><td>England</td><td><b>4</b></td><td>0</td></tr><tr class=''><td>3</td><td>Ghana</td><td><b>3</b></td><td>0</td></tr><tr class=''><td>4</td><td>Panama</td><td><b>1</b></td><td>0</td></tr>
+                </table>
+              </div>
+              <div>
+                <h3 class='section-title'>Results</h3>
+                <table>
+                  <tr><th>Home</th><th></th><th>Away</th></tr>
+        <tr><td class='team-name'>England <span class='badge badge-L'>L</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-W'>W</span> Croatia</td></tr><tr><td class='team-name'>England <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Ghana</td></tr><tr><td class='team-name'>England <span class='badge badge-D'>D</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-D'>D</span> Panama</td></tr><tr><td class='team-name'>Croatia <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Ghana</td></tr><tr><td class='team-name'>Croatia <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Panama</td></tr><tr><td class='team-name'>Ghana <span class='badge badge-W'>W</span></td><td class='vs'>vs</td><td class='team-name'><span class='badge badge-L'>L</span> Panama</td></tr></table></div></div></div></div>
+        <div class='card ko-card'>
+          <div class='card-header'><span class='round-badge'>Round of 32</span></div>
+          <div class='card-body'>
+            <table>
+              <tr><th>Team 1</th><th></th><th>Team 2</th><th>Winner</th></tr>
+        <tr><td><span class='lost'>Australia</span></td><td class='vs'>vs</td><td><b>France</b></td><td class='winner-cell'>🏅 France</td></tr><tr><td><span class='lost'>Sweden</span></td><td class='vs'>vs</td><td><b>Germany</b></td><td class='winner-cell'>🏅 Germany</td></tr><tr><td><b>Netherlands</b></td><td class='vs'>vs</td><td><span class='lost'>South Africa</span></td><td class='winner-cell'>🏅 Netherlands</td></tr><tr><td><b>Spain</b></td><td class='vs'>vs</td><td><span class='lost'>Korea Republic</span></td><td class='winner-cell'>🏅 Spain</td></tr><tr><td><b>Mexico</b></td><td class='vs'>vs</td><td><span class='lost'>Croatia</span></td><td class='winner-cell'>🏅 Mexico</td></tr><tr><td><span class='lost'>Egypt</span></td><td class='vs'>vs</td><td><b>Colombia</b></td><td class='winner-cell'>🏅 Colombia</td></tr><tr><td><b>Argentina</b></td><td class='vs'>vs</td><td><span class='lost'>IR Iran</span></td><td class='winner-cell'>🏅 Argentina</td></tr><tr><td><b>Belgium</b></td><td class='vs'>vs</td><td><span class='lost'>Uruguay</span></td><td class='winner-cell'>🏅 Belgium</td></tr><tr><td><b>Japan</b></td><td class='vs'>vs</td><td><span class='lost'>Ecuador</span></td><td class='winner-cell'>🏅 Japan</td></tr><tr><td><b>Brazil</b></td><td class='vs'>vs</td><td><span class='lost'>Algeria</span></td><td class='winner-cell'>🏅 Brazil</td></tr><tr><td><b>Switzerland</b></td><td class='vs'>vs</td><td><span class='lost'>Scotland</span></td><td class='winner-cell'>🏅 Switzerland</td></tr><tr><td><span class='lost'>Curaçao</span></td><td class='vs'>vs</td><td><b>Senegal</b></td><td class='winner-cell'>🏅 Senegal</td></tr><tr><td><b>Qatar</b></td><td class='vs'>vs</td><td><span class='lost'>Portugal</span></td><td class='winner-cell'>🏅 Qatar</td></tr><tr><td><b>Bosnia-Herzegovina</b></td><td class='vs'>vs</td><td><span class='lost'>Türkiye</span></td><td class='winner-cell'>🏅 Bosnia-Herzegovina</td></tr><tr><td><span class='lost'>Morocco</span></td><td class='vs'>vs</td><td><b>England</b></td><td class='winner-cell'>🏅 England</td></tr><tr><td><b>Paraguay</b></td><td class='vs'>vs</td><td><span class='lost'>Congo DR</span></td><td class='winner-cell'>🏅 Paraguay</td></tr></table></div></div>
+        <div class='card ko-card'>
+          <div class='card-header'><span class='round-badge'>Round of 16</span></div>
+          <div class='card-body'>
+            <table>
+              <tr><th>Team 1</th><th></th><th>Team 2</th><th>Winner</th></tr>
+        <tr><td><b>France</b></td><td class='vs'>vs</td><td><span class='lost'>Germany</span></td><td class='winner-cell'>🏅 France</td></tr><tr><td><span class='lost'>Netherlands</span></td><td class='vs'>vs</td><td><b>Spain</b></td><td class='winner-cell'>🏅 Spain</td></tr><tr><td><span class='lost'>Mexico</span></td><td class='vs'>vs</td><td><b>Colombia</b></td><td class='winner-cell'>🏅 Colombia</td></tr><tr><td><b>Argentina</b></td><td class='vs'>vs</td><td><span class='lost'>Belgium</span></td><td class='winner-cell'>🏅 Argentina</td></tr><tr><td><span class='lost'>Japan</span></td><td class='vs'>vs</td><td><b>Brazil</b></td><td class='winner-cell'>🏅 Brazil</td></tr><tr><td><span class='lost'>Switzerland</span></td><td class='vs'>vs</td><td><b>Senegal</b></td><td class='winner-cell'>🏅 Senegal</td></tr><tr><td><b>Qatar</b></td><td class='vs'>vs</td><td><span class='lost'>Bosnia-Herzegovina</span></td><td class='winner-cell'>🏅 Qatar</td></tr><tr><td><b>England</b></td><td class='vs'>vs</td><td><span class='lost'>Paraguay</span></td><td class='winner-cell'>🏅 England</td></tr></table></div></div>
+        <div class='card ko-card'>
+          <div class='card-header'><span class='round-badge'>Quarterfinals</span></div>
+          <div class='card-body'>
+            <table>
+              <tr><th>Team 1</th><th></th><th>Team 2</th><th>Winner</th></tr>
+        <tr><td><span class='lost'>France</span></td><td class='vs'>vs</td><td><b>Spain</b></td><td class='winner-cell'>🏅 Spain</td></tr><tr><td><span class='lost'>Colombia</span></td><td class='vs'>vs</td><td><b>Argentina</b></td><td class='winner-cell'>🏅 Argentina</td></tr><tr><td><b>Brazil</b></td><td class='vs'>vs</td><td><span class='lost'>Senegal</span></td><td class='winner-cell'>🏅 Brazil</td></tr><tr><td><span class='lost'>Qatar</span></td><td class='vs'>vs</td><td><b>England</b></td><td class='winner-cell'>🏅 England</td></tr></table></div></div>
+        <div class='card ko-card'>
+          <div class='card-header'><span class='round-badge'>Semifinals</span></div>
+          <div class='card-body'>
+            <table>
+              <tr><th>Team 1</th><th></th><th>Team 2</th><th>Winner</th></tr>
+        <tr><td><b>Spain</b></td><td class='vs'>vs</td><td><span class='lost'>Argentina</span></td><td class='winner-cell'>🏅 Spain</td></tr><tr><td><b>Brazil</b></td><td class='vs'>vs</td><td><span class='lost'>England</span></td><td class='winner-cell'>🏅 Brazil</td></tr></table></div></div>
+        <div class='card ko-card'>
+          <div class='card-header'><span class='round-badge'>Final</span></div>
+          <div class='card-body'>
+            <table>
+              <tr><th>Team 1</th><th></th><th>Team 2</th><th>Winner</th></tr>
+        <tr><td><b>Spain</b></td><td class='vs'>vs</td><td><span class='lost'>Brazil</span></td><td class='winner-cell'>🏅 Spain</td></tr></table></div></div>
+
+</body>
+</html>
