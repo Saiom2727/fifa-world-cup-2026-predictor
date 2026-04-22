@@ -1,36 +1,36 @@
-# ⚽ 2026 FIFA World Cup Predictor
+#  2026 FIFA World Cup Predictor
 
 Machine Learning based project to predict football match outcomes and simulate the full 2026 FIFA World Cup tournament using historical international football data.
 
 ---
 
-## 🚀 Project Features
+##  Project Features
 
-✅ Predict Match Results (Home Win / Draw / Away Win)
+ Predict Match Results (Home Win / Draw / Away Win)
 
-✅ Dynamic Elo Rating System
+ Dynamic Elo Rating System
 
-✅ Recent Team Form Features
+ Recent Team Form Features
 
-✅ CatBoost ML Model
+ CatBoost ML Model
 
-✅ Separate Models for:
+ Separate Models for:
 
 - Group Stage (draw-sensitive)
 - Knockout Stage (winner-focused)
 
-✅ Full 2026 FIFA World Cup Simulation
+ Full 2026 FIFA World Cup Simulation
 
 - 48 Teams
 - 12 Groups
 - Round of 32
 - Final Champion Prediction
 
-✅ HTML Visual Tournament Output
+ HTML Visual Tournament Output
 
 ---
 
-## 📊 Final Model Accuracy
+##  Final Model Accuracy
 
 ### Knockout Model
 
@@ -44,7 +44,7 @@ Better draw handling for standings realism.
 
 ---
 
-## 🧠 Machine Learning Features Used
+##  Machine Learning Features Used
 
 - home_team
 - away_team
@@ -56,7 +56,7 @@ Better draw handling for standings realism.
 
 ---
 
-## 📂 Dataset Used
+##  Dataset Used
 
 Historical International Football Matches + FIFA World Cup Matches
 
@@ -66,7 +66,7 @@ Final cleaned dataset:
 
 ---
 
-## ⚙️ Technologies Used
+##  Technologies Used
 
 - Python
 - Pandas
@@ -79,7 +79,7 @@ Final cleaned dataset:
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```bash
 Final/
@@ -105,7 +105,7 @@ requirements.txt
 
 ---
 
-## ▶️ How To Run
+##  How To Run
 
 ### Install requirements
 
@@ -141,7 +141,7 @@ Winning Chances eg:
 
 ---
 
-## 🏆 Sample Output
+##  Sample Output
 
 - Group Stage Results
 - Knockout Bracket
@@ -150,7 +150,7 @@ Winning Chances eg:
 
 ---
 
-## 🔥 Future Improvements
+##  Future Improvements
 
 - Poisson Goal Prediction
 - Live FIFA Rankings API
@@ -160,6 +160,6 @@ Winning Chances eg:
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 Sai Gunjal
