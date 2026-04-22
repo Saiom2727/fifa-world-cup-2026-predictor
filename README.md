@@ -132,6 +132,8 @@ python Final/Tournament_Simulation.py  //For tournament winning probabilities
 ```text
 Example_Predicition_Run.html
 ```
+<img width="1850" height="928" alt="image" src="https://github.com/user-attachments/assets/e0c9643a-b228-48e4-b7e2-a65c12c1d611" />
+<img width="1850" height="928" alt="image" src="https://github.com/user-attachments/assets/44225a73-9658-4ed9-af2a-3878edd2e1e2" />
 
 ---
 
