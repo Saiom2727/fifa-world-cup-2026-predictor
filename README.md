@@ -136,6 +136,9 @@ Example_Predicition_Run.html
 <img width="1850" height="928" alt="image" src="https://github.com/user-attachments/assets/e0c9643a-b228-48e4-b7e2-a65c12c1d611" />
 <img width="1850" height="928" alt="image" src="https://github.com/user-attachments/assets/44225a73-9658-4ed9-af2a-3878edd2e1e2" />
 
+Winning Chances eg:
+<img width="273" height="559" alt="image" src="https://github.com/user-attachments/assets/bb20dc4e-d7e2-40e1-90db-fc388fdc0b20" />
+
 ---
 
 ## 🏆 Sample Output
